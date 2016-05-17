@@ -8,12 +8,21 @@ public class ScoreCollection {
 	
 	public void add(Scoreable score)
 	{
+		if (score == null) {
+			throw new IllegalArgumentException();
+		}
+
 		scores.add(score);
 	}
 	
 	public int arithmetocMean()
 	{
-		int total = scores.stream().mapToInt(Scoreable::getScore).sum();
-		return total / scores.size();
+		if (scores.size() == 0) {
+			return 0;
+		}
+
+		long total = scores.stream().mapToLong(Scoreable::getScore).sum();
+
+		return (int) (total / scores.size());
 	}
 }
